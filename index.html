@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laksanasoft – Solusi GPS Tracker Terpercaya</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #00f5ff;
+    --cyan-dim: #00c8d0;
+    --cyan-dark: #007a85;
+    --bg-dark: #050b14;
+    --bg-card: #080f1c;
+    --bg-panel: #0d1828;
+    --border: rgba(0,245,255,0.15);
+    --border-bright: rgba(0,245,255,0.4);
+    --text: #e0f0f5;
+    --text-muted: #7a9aaa;
+    --accent: #ff6b35;
+    --accent-dim: #cc4e1c;
+    --green: #00ff88;
+    --green-dim: #00cc6a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Exo 2',sans-serif;
+    background:var(--bg-dark);
+    color:var(--text);
+    overflow-x:hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size:60px 60px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* NAVBAR */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1rem 3rem;
+    background:rgba(5,11,20,0.85);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-logo{
+    display:flex;align-items:center;gap:12px;
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.6rem;font-weight:700;
+    color:var(--cyan);
+    letter-spacing:2px;
+    text-decoration:none;
+  }
+  .nav-logo svg{width:36px;height:36px;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:0.9rem;font-weight:500;
+    letter-spacing:1px;text-transform:uppercase;
+    transition:color .3s;
+    position:relative;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-4px;left:0;right:0;
+    height:1px;background:var(--cyan);
+    transform:scaleX(0);transition:transform .3s;
+  }
+  .nav-links a:hover{color:var(--cyan);}
+  .nav-links a:hover::after{transform:scaleX(1);}
+  .nav-cta{
+    background:transparent;
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    padding:.5rem 1.4rem;
+    font-family:'Rajdhani',sans-serif;
+    font-size:.95rem;font-weight:600;
+    letter-spacing:1px;text-transform:uppercase;
+    cursor:pointer;
+    clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+    transition:all .3s;
+    text-decoration:none;
+  }
+  .nav-cta:hover{background:var(--cyan);color:var(--bg-dark);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--cyan);}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:8rem 3rem 4rem;
+    overflow:hidden;
+    z-index:1;
+  }
+  .hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .hero-particles span{
+    position:absolute;
+    width:2px;height:2px;
+    background:var(--cyan);
+    border-radius:50%;
+    animation:float var(--d) linear infinite;
+    opacity:0;
+    left:var(--x);
+    top:100%;
+  }
+  @keyframes float{
+    0%{top:100%;opacity:0;}
+    10%{opacity:.8;}
+    90%{opacity:.4;}
+    100%{top:-5%;opacity:0;}
+  }
+  .hero-globe{
+    position:absolute;right:-5%;top:50%;transform:translateY(-50%);
+    width:560px;height:560px;opacity:.18;
+    pointer-events:none;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:680px;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(0,245,255,0.06);
+    border:1px solid var(--border-bright);
+    padding:.4rem 1rem;
+    font-size:.78rem;letter-spacing:2px;text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:1.5rem;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  }
+  .hero-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.5s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+  h1{
+    font-family:'Rajdhani',sans-serif;
+    font-size:clamp(2.8rem,5vw,4.5rem);
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:1px;
+    margin-bottom:1.2rem;
+  }
+  h1 span{color:var(--cyan);}
+  .hero-sub{
+    font-size:1.05rem;
+    color:var(--text-muted);
+    line-height:1.8;
+    margin-bottom:2.5rem;
+    max-width:520px;
+  }
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--cyan);color:var(--bg-dark);
+    padding:.75rem 2rem;
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;font-size:1rem;letter-spacing:1px;text-transform:uppercase;
+    text-decoration:none;
+    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+    transition:all .3s;
+    position:relative;overflow:hidden;
+  }
+  .btn-primary::after{
+    content:'';position:absolute;inset:0;
+    background:rgba(255,255,255,.2);
+    transform:translateX(-100%);transition:transform .4s;
+  }
+  .btn-primary:hover::after{transform:translateX(100%);}
+  .btn-secondary{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--border-bright);color:var(--text);
+    padding:.75rem 2rem;
+    font-family:'Rajdhani',sans-serif;
+    font-weight:600;font-size:1rem;letter-spacing:1px;text-transform:uppercase;
+    text-decoration:none;
+    clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+    transition:all .3s;
+  }
+  .btn-secondary:hover{background:rgba(0,245,255,0.08);border-color:var(--cyan);color:var(--cyan);}
+  .hero-stats{
+    display:flex;gap:2rem;
+    margin-top:3rem;padding-top:2rem;
+    border-top:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .hero-stat .num{
+    font-family:'Rajdhani',sans-serif;
+    font-size:2rem;font-weight:700;color:var(--cyan);
+  }
+  .hero-stat .lbl{font-size:.78rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+
+  /* SECTIONS */
+  section{position:relative;z-index:1;padding:6rem 3rem;}
+  .section-header{text-align:center;margin-bottom:3.5rem;}
+  .section-tag{
+    display:inline-block;
+    font-size:.72rem;letter-spacing:3px;text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:.75rem;
+  }
+  h2{
+    font-family:'Rajdhani',sans-serif;
+    font-size:clamp(1.8rem,3vw,2.8rem);
+    font-weight:700;letter-spacing:1px;
+  }
+  h2 span{color:var(--cyan);}
+  .section-sub{color:var(--text-muted);font-size:1rem;margin-top:.5rem;line-height:1.7;}
+
+  /* PRODUCTS */
+  #produk{background:var(--bg-card);}
+  .products-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.5rem;
+    max-width:1200px;margin:0 auto;
+  }
+  .product-card{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    padding:2rem 1.5rem;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:all .4s;
+    clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%);
+  }
+  .product-card::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(0,245,255,0.04),transparent);
+    opacity:0;transition:opacity .4s;
+  }
+  .product-card:hover{
+    border-color:var(--border-bright);
+    transform:translateY(-4px);
+  }
+  .product-card:hover::before{opacity:1;}
+  .product-card.featured{
+    border-color:var(--cyan-dark);
+  }
+  .product-card.featured .card-badge{
+    position:absolute;top:1rem;right:1rem;
+    background:var(--accent);color:#fff;
+    font-size:.65rem;letter-spacing:1px;text-transform:uppercase;
+    padding:.25rem .6rem;font-weight:700;
+  }
+  .card-icon{
+    width:56px;height:56px;
+    background:rgba(0,245,255,0.06);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1.2rem;
+  }
+  .card-icon svg{width:28px;height:28px;stroke:var(--cyan);fill:none;stroke-width:1.5;}
+  .product-card h3{
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.3rem;font-weight:700;letter-spacing:1px;
+    margin-bottom:.5rem;
+  }
+  .product-card p{color:var(--text-muted);font-size:.9rem;line-height:1.7;margin-bottom:1.2rem;}
+  .product-price{
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.5rem;font-weight:700;
+    color:var(--cyan);
+  }
+  .product-price small{font-size:.8rem;font-weight:400;color:var(--text-muted);}
+  .card-features{list-style:none;margin-top:1rem;}
+  .card-features li{
+    display:flex;align-items:center;gap:8px;
+    font-size:.82rem;color:var(--text-muted);
+    padding:.3rem 0;
+    border-bottom:1px solid rgba(0,245,255,0.05);
+  }
+  .card-features li:last-child{border-bottom:none;}
+  .card-features li svg{width:14px;height:14px;stroke:var(--green);flex-shrink:0;}
+
+  /* SERVERS */
+  #server{background:var(--bg-dark);}
+  .server-tabs{
+    display:flex;gap:1rem;justify-content:center;
+    margin-bottom:2.5rem;flex-wrap:wrap;
+  }
+  .tab-btn{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    padding:.6rem 1.5rem;
+    font-family:'Rajdhani',sans-serif;
+    font-size:1rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+    cursor:pointer;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+    transition:all .3s;
+  }
+  .tab-btn.active{
+    background:var(--cyan);color:var(--bg-dark);
+    border-color:var(--cyan);
+  }
+  .tab-btn:hover:not(.active){border-color:var(--cyan-dark);color:var(--text);}
+  .tab-content{display:none;max-width:1100px;margin:0 auto;}
+  .tab-content.active{display:block;}
+  .servers-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:1rem;
+  }
+  .server-card{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    padding:1.2rem;
+    display:flex;flex-direction:column;align-items:center;gap:.6rem;
+    text-align:center;
+    transition:all .3s;
+    cursor:default;
+  }
+  .server-card:hover{border-color:var(--border-bright);background:rgba(0,245,255,0.03);}
+  .server-icon{
+    width:48px;height:48px;
+    background:rgba(0,245,255,0.06);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    border-radius:2px;
+  }
+  .server-icon svg{width:24px;height:24px;stroke:var(--cyan);fill:none;stroke-width:1.5;}
+  .server-card span{
+    font-family:'Rajdhani',sans-serif;
+    font-weight:600;font-size:.92rem;
+    letter-spacing:.5px;
+  }
+  .server-tag{
+    font-size:.65rem;letter-spacing:1px;text-transform:uppercase;
+    color:var(--text-muted);
+    background:rgba(0,245,255,0.04);
+    padding:.15rem .5rem;
+    border:1px solid var(--border);
+  }
+
+  /* FEATURES */
+  #fitur{background:var(--bg-card);}
+  .features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.5rem;
+    max-width:1100px;margin:0 auto;
+  }
+  .feature-item{
+    display:flex;gap:1rem;
+    padding:1.5rem;
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    transition:border-color .3s;
+  }
+  .feature-item:hover{border-color:var(--border-bright);}
+  .fi-icon{
+    flex-shrink:0;
+    width:44px;height:44px;
+    background:rgba(0,245,255,0.06);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .fi-icon svg{width:22px;height:22px;stroke:var(--cyan);fill:none;stroke-width:1.5;}
+  .fi-body h4{
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.05rem;font-weight:700;letter-spacing:.5px;
+    margin-bottom:.3rem;
+  }
+  .fi-body p{color:var(--text-muted);font-size:.85rem;line-height:1.6;}
+
+  /* HOW IT WORKS */
+  #cara-kerja{background:var(--bg-dark);}
+  .steps-wrapper{
+    max-width:900px;margin:0 auto;
+    display:flex;flex-direction:column;gap:0;
+  }
+  .step{
+    display:grid;grid-template-columns:80px 1fr;gap:1.5rem;
+    align-items:start;
+    padding:1.5rem 0;
+    border-bottom:1px solid var(--border);
+    position:relative;
+  }
+  .step:last-child{border-bottom:none;}
+  .step-num{
+    width:56px;height:56px;
+    background:rgba(0,245,255,0.06);
+    border:1px solid var(--border-bright);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.5rem;font-weight:700;color:var(--cyan);
+    position:relative;z-index:1;
+  }
+  .step-body h3{
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.2rem;font-weight:700;margin-bottom:.4rem;
+  }
+  .step-body p{color:var(--text-muted);font-size:.9rem;line-height:1.7;}
+
+  /* CTA BAND */
+  .cta-band{
+    background:linear-gradient(135deg,rgba(0,245,255,0.06),rgba(0,200,208,0.02));
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:4rem 3rem;
+    text-align:center;
+    position:relative;z-index:1;
+    overflow:hidden;
+  }
+  .cta-band::before{
+    content:'';position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(0,245,255,0.05),transparent 70%);
+    top:50%;left:50%;transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .cta-band h2{font-size:clamp(1.5rem,3vw,2.5rem);margin-bottom:1rem;}
+  .cta-band p{color:var(--text-muted);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;}
+
+  /* CONTACT */
+  #kontak{background:var(--bg-card);}
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:3rem;
+    max-width:1000px;margin:0 auto;
+  }
+  .contact-info h3{
+    font-family:'Rajdhani',sans-serif;
+    font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;
+  }
+  .contact-item{
+    display:flex;align-items:flex-start;gap:1rem;
+    margin-bottom:1.5rem;
+  }
+  .ci-icon{
+    flex-shrink:0;
+    width:42px;height:42px;
+    background:rgba(0,245,255,0.06);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ci-icon svg{width:20px;height:20px;stroke:var(--cyan);fill:none;stroke-width:1.5;}
+  .ci-text .label{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:.2rem;}
+  .ci-text a,.ci-text span{color:var(--text);text-decoration:none;font-size:.95rem;}
+  .ci-text a:hover{color:var(--cyan);}
+  .contact-form{display:flex;flex-direction:column;gap:1rem;}
+  .form-group{display:flex;flex-direction:column;gap:.4rem;}
+  .form-group label{font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);}
+  .form-group input,.form-group textarea{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:.75rem 1rem;
+    font-family:'Exo 2',sans-serif;
+    font-size:.9rem;
+    outline:none;
+    transition:border-color .3s;
+  }
+  .form-group textarea{resize:vertical;min-height:100px;}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--cyan);}
+
+  /* FOOTER */
+  footer{
+    background:var(--bg-dark);
+    border-top:1px solid var(--border);
+    padding:3rem;
+    position:relative;z-index:1;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;
+    max-width:1100px;margin:0 auto;
+    margin-bottom:2rem;
+    padding-bottom:2rem;
+    border-bottom:1px solid var(--border);
+  }
+  .footer-brand .nav-logo{margin-bottom:1rem;display:inline-flex;}
+  .footer-brand p{color:var(--text-muted);font-size:.85rem;line-height:1.7;max-width:260px;}
+  .footer-col h4{
+    font-family:'Rajdhani',sans-serif;
+    font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    color:var(--cyan);margin-bottom:1rem;
+  }
+  .footer-col ul{list-style:none;}
+  .footer-col ul li{margin-bottom:.5rem;}
+  .footer-col ul li a{color:var(--text-muted);text-decoration:none;font-size:.85rem;transition:color .3s;}
+  .footer-col ul li a:hover{color:var(--cyan);}
+  .footer-bottom{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:1100px;margin:0 auto;
+    color:var(--text-muted);font-size:.8rem;
+    flex-wrap:wrap;gap:1rem;
+  }
+  .footer-bottom a{color:var(--cyan);text-decoration:none;}
+
+  @keyframes spin{from{stroke-dashoffset:60;}to{stroke-dashoffset:0;transform:rotate(360deg);}}
+
+  /* SCROLL ANIMATIONS */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+  .reveal.visible{opacity:1;transform:none;}
+
+  /* SCANLINE OVERLAY */
+  body::after{
+    content:'';
+    position:fixed;inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);
+    pointer-events:none;z-index:9999;
+  }
+
+  /* MAP MARKER PULSE */
+  .pulse-dot{
+    display:inline-block;
+    width:10px;height:10px;
+    background:var(--green);border-radius:50%;
+    box-shadow:0 0 0 0 rgba(0,255,136,.4);
+    animation:pulse-ring 2s infinite;
+  }
+  @keyframes pulse-ring{
+    0%{box-shadow:0 0 0 0 rgba(0,255,136,.4);}
+    70%{box-shadow:0 0 0 10px rgba(0,255,136,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,255,136,0);}
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links,.nav-cta{display:none;}
+    .nav-links.open{
+      display:flex;flex-direction:column;
+      position:fixed;top:64px;left:0;right:0;
+      background:rgba(5,11,20,.97);
+      padding:2rem;gap:1.5rem;
+      border-bottom:1px solid var(--border);
+    }
+    .nav-cta.open{display:block;margin:0 1.5rem 1.5rem;}
+    .hamburger{display:flex;}
+    section{padding:4rem 1.5rem;}
+    .hero{padding:7rem 1.5rem 3rem;}
+    .hero-globe{display:none;}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    h1{font-size:2.5rem;}
+    footer{padding:2rem 1.5rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div class="hero-particles" id="particles"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" stroke="#00f5ff" stroke-width="1.5" fill="rgba(0,245,255,0.06)"/>
+      <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" stroke="#00f5ff" stroke-width="1" fill="rgba(0,245,255,0.04)" opacity=".6"/>
+      <circle cx="18" cy="18" r="4" fill="#00f5ff"/>
+      <line x1="18" y1="8" x2="18" y2="14" stroke="#00f5ff" stroke-width="1"/>
+      <line x1="28" y1="13" x2="22" y2="16" stroke="#00f5ff" stroke-width="1"/>
+      <line x1="28" y1="23" x2="22" y2="20" stroke="#00f5ff" stroke-width="1"/>
+    </svg>
+    LAKSANASOFT
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#produk">Produk</a></li>
+    <li><a href="#server">Server GPS</a></li>
+    <li><a href="#fitur">Fitur</a></li>
+    <li><a href="#cara-kerja">Cara Kerja</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <a href="#kontak" class="nav-cta" id="navCta">Hubungi Kami</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="beranda">
+  <svg class="hero-globe" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="280" cy="280" r="270" stroke="#00f5ff" stroke-width=".5"/>
+    <ellipse cx="280" cy="280" rx="270" ry="130" stroke="#00f5ff" stroke-width=".5"/>
+    <ellipse cx="280" cy="280" rx="270" ry="60" stroke="#00f5ff" stroke-width=".3"/>
+    <circle cx="280" cy="280" r="200" stroke="#00f5ff" stroke-width=".3"/>
+    <circle cx="280" cy="280" r="130" stroke="#00f5ff" stroke-width=".3"/>
+    <line x1="10" y1="280" x2="550" y2="280" stroke="#00f5ff" stroke-width=".3"/>
+    <line x1="280" y1="10" x2="280" y2="550" stroke="#00f5ff" stroke-width=".3"/>
+    <!-- Dots representing cities -->
+    <circle cx="320" cy="220" r="4" fill="#00f5ff"/>
+    <circle cx="200" cy="300" r="3" fill="#00ff88"/>
+    <circle cx="380" cy="310" r="3" fill="#00f5ff"/>
+    <circle cx="260" cy="180" r="3" fill="#ff6b35"/>
+    <!-- Lines between dots -->
+    <line x1="320" y1="220" x2="200" y2="300" stroke="#00f5ff" stroke-width=".4"/>
+    <line x1="320" y1="220" x2="380" y2="310" stroke="#00f5ff" stroke-width=".4"/>
+    <line x1="260" y1="180" x2="320" y2="220" stroke="#ff6b35" stroke-width=".4"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      PT. Laksana Digital Industri
+    </div>
+    <h1>Solusi <span>GPS Tracker</span><br>4G Terpercaya</h1>
+    <p class="hero-sub">Pantau kendaraan & aset industri Anda secara real-time dengan teknologi 4G terkini. Motor, mobil, alat berat — semua dalam satu platform terintegrasi.</p>
+    <div class="hero-btns">
+      <a href="#produk" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Lihat Produk
+      </a>
+      <a href="#kontak" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5c-.04-.56.18-1.1.56-1.5L4.09.5A2 2 0 0 1 6 .5l2.84 2.84a2 2 0 0 1 .45 2.2L8 8.09a16 16 0 0 0 7.91 7.91l2.55-1.29a2 2 0 0 1 2.2.45L23 17.9a2 2 0 0 1-.08 1.02z"/></svg>
+        Konsultasi Gratis
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num" id="stat1">0</div>
+        <div class="lbl">Server GPS Tersedia</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" id="stat2">0</div>
+        <div class="lbl">Jaringan 4G LTE</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" id="stat3">0</div>
+        <div class="lbl">Kategori Kendaraan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="produk">
+  <div class="section-header reveal">
+    <div class="section-tag">// Produk Unggulan</div>
+    <h2>GPS Tracker <span>4G</span> Kami</h2>
+    <p class="section-sub">Pilih perangkat yang sesuai dengan kebutuhan Anda</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card reveal">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3m-3 7h8m0 0l-3-3m3 3-3 3"/><rect x="9" y="11" width="14" height="10" rx="2" ry="2"/></svg>
+      </div>
+      <h3>GPS Tracker Sepeda Motor</h3>
+      <p>Perangkat kompak khusus roda dua dengan pemasangan mudah dan tahan getaran.</p>
+      <div class="product-price">Rp 1.050.000 <small>/ unit</small></div>
+      <ul class="card-features">
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Teknologi 4G LTE
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Real-time Tracking
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Tahan Cuaca & Getaran
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Alarm System
+        </li>
+      </ul>
+    </div>
+
+    <div class="product-card featured reveal">
+      <div class="card-badge">Terlaris</div>
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <h3>GPS Tracker Mobil</h3>
+      <p>Solusi pemantauan kendaraan roda empat dengan fitur lengkap dan akurasi tinggi.</p>
+      <div class="product-price">Rp 1.200.000 <small>/ unit</small></div>
+      <ul class="card-features">
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Teknologi 4G LTE
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Riwayat Perjalanan
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Geofence & Notifikasi
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Alarm System
+        </li>
+      </ul>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M10 15 5 20H2v-3l13-13 3 3-8 8z"/><path d="M2 20h20"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>
+      </div>
+      <h3>GPS Tracker Industri</h3>
+      <p>Perangkat tangguh untuk alat berat, truk industri, dan aset bernilai tinggi.</p>
+      <div class="product-price">Mulai Rp 3.000.000 <small>/ unit</small></div>
+      <ul class="card-features">
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          4G + GPS Presisi Tinggi
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Baterai Backup Internal
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          IP67 Waterproof
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Sensor Bahan Bakar & RPM
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVERS -->
+<section id="server">
+  <div class="section-header reveal">
+    <div class="section-tag">// Platform Monitoring</div>
+    <h2>Server GPS <span>Kami Dukung</span></h2>
+    <p class="section-sub">Pilihan server GPS lokal dan internasional terlengkap</p>
+  </div>
+  <div class="server-tabs">
+    <button class="tab-btn active" data-tab="lokal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-3px;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Server Lokal Indonesia
+    </button>
+    <button class="tab-btn" data-tab="internasional">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-3px;margin-right:6px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Server Internasional
+    </button>
+  </div>
+
+  <div class="tab-content active" id="tab-lokal">
+    <div class="servers-grid">
+      <!-- IDTRACK -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3" stroke-linecap="round"/></svg>
+        </div>
+        <span>IDTRACK</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+      <!-- GPSKU -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <span>GPSKU</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+      <!-- Superspring -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <span>Superspring (GPSid)</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+      <!-- Smart Tracker -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <span>Smart Tracker</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+      <!-- Inteltrack -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <span>Inteltrack</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+      <!-- Jawara -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span>Jawara Tracker</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+      <!-- TransTrack -->
+      <div class="server-card reveal">
+        <div class="server-icon">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <span>TransTrack</span>
+        <div class="server-tag">Lokal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-internasional">
+    <div class="servers-grid">
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><span>WanWayTrack</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span>Protrack</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span>Wialon</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><span>Ruhavik</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M5.37 5.37A10 10 0 0 0 5.37 18.63"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46A5 5 0 0 0 8.46 15.54"/></svg></div><span>GPSWOX</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span>Tracksolid Pro</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span>Whatsgps</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span>Traccar</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/><circle cx="12" cy="11" r="3"/></svg></div><span>Navixy</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div><span>Dagps</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span>Secumore</span><div class="server-tag">Internasional</div></div>
+      <div class="server-card reveal"><div class="server-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span>Flespi</span><div class="server-tag">Internasional</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="fitur">
+  <div class="section-header reveal">
+    <div class="section-tag">// Keunggulan Kami</div>
+    <h2>Mengapa Pilih <span>Laksanasoft</span>?</h2>
+    <p class="section-sub">Teknologi terdepan untuk keamanan aset Anda</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-item reveal">
+      <div class="fi-icon">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="fi-body">
+        <h4>Jaringan 4G LTE</h4>
+        <p>Transmisi data super cepat dengan latensi rendah, memastikan posisi selalu akurat dan real-time.</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="fi-body">
+        <h4>Pemantauan 24/7</h4>
+        <p>Sistem berjalan non-stop tanpa gangguan. Pantau aset Anda kapan saja dan di mana saja.</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="fi-body">
+        <h4>Keamanan Data</h4>
+        <p>Data terenkripsi end-to-end. Privasi dan keamanan informasi kendaraan Anda terjamin.</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="fi-body">
+        <h4>Dashboard Lengkap</h4>
+        <p>Antarmuka yang intuitif dengan laporan detail, grafik, dan analitik perjalanan.</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
+      <div class="fi-body">
+        <h4>Multi-Server Support</h4>
+        <p>Kompatibel dengan 19+ platform GPS server lokal dan internasional terkemuka.</p>
+      </div>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5c-.04-.56.18-1.1.56-1.5L4.09.5A2 2 0 0 1 6 .5l2.84 2.84a2 2 0 0 1 .45 2.2L8 8.09a16 16 0 0 0 7.91 7.91l2.55-1.29a2 2 0 0 1 2.2.45L23 17.9a2 2 0 0 1-.08 1.02z"/></svg>
+      </div>
+      <div class="fi-body">
+        <h4>Dukungan Teknis</h4>
+        <p>Tim teknisi berpengalaman siap membantu instalasi, konfigurasi, dan troubleshooting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="cara-kerja">
+  <div class="section-header reveal">
+    <div class="section-tag">// Proses Sederhana</div>
+    <h2>Cara Kerja <span>Sistem GPS</span></h2>
+    <p class="section-sub">Mulai dari pembelian hingga pemantauan aktif dalam 4 langkah mudah</p>
+  </div>
+  <div class="steps-wrapper">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Pilih Perangkat GPS</h3>
+        <p>Konsultasikan kebutuhan Anda dengan tim kami. Kami akan merekomendasikan perangkat GPS yang tepat sesuai jenis kendaraan dan anggaran Anda.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Instalasi Profesional</h3>
+        <p>Tim teknisi kami melakukan pemasangan perangkat secara profesional. Instalasi rapi dan tersembunyi untuk menjaga estetika kendaraan.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Konfigurasi Platform</h3>
+        <p>Kami mengkonfigurasi akun Anda di server GPS pilihan — lokal atau internasional. Setting geofence, alert, dan laporan sesuai kebutuhan.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Pantau Real-Time</h3>
+        <p>Sistem siap! Pantau posisi kendaraan, riwayat perjalanan, dan kondisi aset Anda kapan saja melalui aplikasi mobile atau browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band reveal">
+  <h2>Siap Pantau <span style="color:var(--cyan)">Kendaraan Anda?</span></h2>
+  <p>Dapatkan konsultasi gratis dan penawaran terbaik dari tim Laksanasoft hari ini.</p>
+  <a href="#kontak" class="btn-primary" style="display:inline-flex">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5c-.04-.56.18-1.1.56-1.5L4.09.5A2 2 0 0 1 6 .5l2.84 2.84a2 2 0 0 1 .45 2.2L8 8.09a16 16 0 0 0 7.91 7.91l2.55-1.29a2 2 0 0 1 2.2.45L23 17.9a2 2 0 0 1-.08 1.02z"/></svg>
+    Hubungi Sekarang
+  </a>
+</div>
+
+<!-- CONTACT -->
+<section id="kontak">
+  <div class="section-header reveal">
+    <div class="section-tag">// Hubungi Kami</div>
+    <h2>Konsultasi <span>Gratis</span></h2>
+    <p class="section-sub">Tim kami siap membantu Anda menemukan solusi GPS terbaik</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>Informasi Kontak</h3>
+
+      <div class="contact-item">
+        <div class="ci-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="label">Alamat</div>
+          <span>Banjarmasin, Kalimantan Selatan<br>Indonesia</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="ci-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5c-.04-.56.18-1.1.56-1.5L4.09.5A2 2 0 0 1 6 .5l2.84 2.84a2 2 0 0 1 .45 2.2L8 8.09a16 16 0 0 0 7.91 7.91l2.55-1.29a2 2 0 0 1 2.2.45L23 17.9a2 2 0 0 1-.08 1.02z"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="label">Telepon / WhatsApp</div>
+          <a href="https://wa.me/628567882625">+62 856-7882-625</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="ci-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="label">Email</div>
+          <a href="mailto:laksanasoft@outlook.co.id">laksanasoft@outlook.co.id</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="ci-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="label">Website</div>
+          <a href="https://laksanasoft.github.io" target="_blank">laksanasoft.github.io</a>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;padding:1.2rem;background:rgba(0,245,255,0.04);border:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+        <span class="pulse-dot"></span>
+        <span style="font-size:.85rem;color:var(--text-muted)">Kami aktif melayani Senin – Sabtu, 08.00 – 17.00 WITA</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <!-- SUCCESS STATE -->
+      <div id="formSuccess" style="display:none;padding:2.5rem;background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.3);text-align:center;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="1.5" style="margin-bottom:1rem"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;color:#00ff88;margin-bottom:.5rem;">Pesan Terkirim!</h3>
+        <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:1.5rem;">Terima kasih telah menghubungi kami. Tim Laksanasoft akan merespons dalam waktu 1×24 jam.</p>
+        <button onclick="resetForm()" class="btn-secondary" style="font-size:.85rem;padding:.5rem 1.2rem;">Kirim Pesan Lain</button>
+      </div>
+
+      <!-- ERROR STATE -->
+      <div id="formError" style="display:none;padding:1rem 1.2rem;background:rgba(255,80,80,0.06);border:1px solid rgba(255,80,80,0.3);margin-bottom:1rem;display:none;align-items:center;gap:.75rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff5050" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="formErrorMsg" style="color:#ff8080;font-size:.88rem;">Terjadi kesalahan. Silakan coba lagi.</span>
+      </div>
+
+      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="6bd4dd68-d72c-456d-b1bd-14fef1acd8c0">
+        <input type="hidden" name="subject" value="Pertanyaan GPS Tracker – Laksanasoft">
+        <input type="hidden" name="from_name" value="Website Laksanasoft">
+        <input type="hidden" name="redirect" value="false">
+
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input type="text" name="name" placeholder="Masukkan nama Anda" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="email@contoh.com" required>
+        </div>
+        <div class="form-group">
+          <label>Nomor Telepon / WhatsApp</label>
+          <input type="tel" name="phone" placeholder="08xxxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>Jenis Kendaraan</label>
+          <input type="text" name="vehicle" placeholder="Mobil / Motor / Truk / Alat Berat">
+        </div>
+        <div class="form-group">
+          <label>Pesan</label>
+          <textarea name="message" placeholder="Ceritakan kebutuhan GPS tracking Anda..." required></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;">
+          <svg id="btnIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span id="btnText">Kirim Pesan</span>
+        </button>
+
+        <div style="margin-top:.75rem;text-align:center;">
+          <span style="color:var(--text-muted);font-size:.8rem;">atau hubungi langsung via</span>
+          <a href="https://wa.me/628567882625" target="_blank" style="color:var(--green);font-size:.8rem;margin-left:4px;text-decoration:none;font-weight:600;">WhatsApp ↗</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">
+        <svg viewBox="0 0 36 36" fill="none" width="28" height="28">
+          <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" stroke="#00f5ff" stroke-width="1.5" fill="rgba(0,245,255,0.06)"/>
+          <circle cx="18" cy="18" r="4" fill="#00f5ff"/>
+        </svg>
+        LAKSANASOFT
+      </a>
+      <p>Solusi GPS Tracker 4G terpercaya untuk kendaraan dan industri. Berbasis di Banjarmasin, melayani seluruh Indonesia.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Produk</h4>
+      <ul>
+        <li><a href="#produk">GPS Tracker Sepeda Motor</a></li>
+        <li><a href="#produk">GPS Tracker Mobil</a></li>
+        <li><a href="#produk">GPS Tracker Industri</a></li>
+        <li><a href="#server">Daftar Server GPS</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Perusahaan</h4>
+      <ul>
+        <li><a href="#fitur">Fitur Unggulan</a></li>
+        <li><a href="#cara-kerja">Cara Kerja</a></li>
+        <li><a href="#kontak">Hubungi Kami</a></li>
+        <li><a href="https://laksanasoft.github.io" target="_blank">Website Utama</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 PT Laksana Digital Industri. All Right Reserved.</span>
+</footer>
+
+<script>
+// PARTICLES
+(function(){
+  const c = document.getElementById('particles');
+  for(let i=0;i<40;i++){
+    const s = document.createElement('span');
+    s.style.cssText = `--x:${Math.random()*100}%;--d:${6+Math.random()*14}s;animation-delay:${Math.random()*12}s;`;
+    c.appendChild(s);
+  }
+})();
+
+// HAMBURGER MENU
+const ham = document.getElementById('hamburger');
+const links = document.getElementById('navLinks');
+const cta = document.getElementById('navCta');
+ham.addEventListener('click',()=>{
+  links.classList.toggle('open');
+  cta.classList.toggle('open');
+});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  links.classList.remove('open');
+  cta.classList.remove('open');
+}));
+
+// NAV SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  navbar.style.background = window.scrollY > 50 ? 'rgba(5,11,20,0.97)' : 'rgba(5,11,20,0.85)';
+});
+
+// COUNTER ANIMATION
+function animateCount(el, target, suffix=''){
+  let start=0;
+  const dur=2000, step=16;
+  const inc = target/(dur/step);
+  const timer = setInterval(()=>{
+    start = Math.min(start+inc, target);
+    el.textContent = Math.round(start) + suffix;
+    if(start>=target) clearInterval(timer);
+  },step);
+}
+const statsObserver = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      animateCount(document.getElementById('stat1'),19,'+');
+      animateCount(document.getElementById('stat2'),4,'G');
+      animateCount(document.getElementById('stat3'),4,'+');
+      statsObserver.disconnect();
+    }
+  });
+},{threshold:.5});
+statsObserver.observe(document.querySelector('.hero-stats'));
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// TABS
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+// WEB3FORMS SUBMIT
+const contactForm = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = document.getElementById('btnText');
+const btnIcon = document.getElementById('btnIcon');
+const formSuccess = document.getElementById('formSuccess');
+const formError = document.getElementById('formError');
+const formErrorMsg = document.getElementById('formErrorMsg');
+
+contactForm.addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  // Loading state
+  submitBtn.disabled = true;
+  btnText.textContent = 'Mengirim...';
+  btnIcon.innerHTML = '<circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="0" style="animation:spin 1s linear infinite;transform-origin:center"/>';
+  formError.style.display = 'none';
+
+  const data = new FormData(contactForm);
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    });
+    const json = await res.json();
+
+    if(json.success){
+      contactForm.style.display = 'none';
+      formSuccess.style.display = 'block';
+    } else {
+      throw new Error(json.message || 'Gagal mengirim pesan.');
+    }
+  } catch(err){
+    formErrorMsg.textContent = err.message || 'Terjadi kesalahan. Silakan coba lagi.';
+    formError.style.display = 'flex';
+    // Reset button
+    submitBtn.disabled = false;
+    btnText.textContent = 'Kirim Pesan';
+    btnIcon.innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
+  }
+});
+
+function resetForm(){
+  contactForm.reset();
+  contactForm.style.display = 'flex';
+  formSuccess.style.display = 'none';
+  formError.style.display = 'none';
+  submitBtn.disabled = false;
+  btnText.textContent = 'Kirim Pesan';
+  btnIcon.innerHTML = '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>';
+}
+</script>
+</body>
+</html>
